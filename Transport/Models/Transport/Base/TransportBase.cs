@@ -22,5 +22,10 @@
         }
 
         protected bool IsWorking { get; set; } = true;
+        protected double? FuelConsumption { get; set; }
+        protected double? FuelCount { get; set; }
+        protected double Acceleration { get; set; }
+        protected double MaxSpeed { get; set; }
+        protected double StartSpeed { get; set; }
     }
 }

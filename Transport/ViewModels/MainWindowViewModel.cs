@@ -12,10 +12,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using Transport.Enums;
 using Transport.Infrastructure;
-using Transport.Interface;
 using Transport.Models;
 using Transport.ViewModels.Base;
 using Transport.Views.Windows;
@@ -72,9 +70,20 @@ namespace Transport.ViewModels
 
         #endregion
 
+        #region IsSliderWork
+
+        private bool _isSliderWork = false;
+        public bool IsSliderWork
+        {
+            get => _isSliderWork;
+            set => _isSliderWork = value;
+        }
+
+        #endregion
+
         #region Commands
 
-        #region
+        #region OpenWindowCommand
         public ICommand OpenWindowCommand { get; }
 
         private bool CanOpenWindowCommandExecute(object p) => true;
@@ -95,7 +104,7 @@ namespace Transport.ViewModels
 
         #endregion
 
-        #region
+        #region GetCsvCommand
         public ICommand GetCsvCommand { get; }
 
         private bool CanGetCsvCommandExecute(object p) => true;
@@ -139,7 +148,7 @@ namespace Transport.ViewModels
 
         #endregion
 
-        #region
+        #region StartCommand
         public ICommand StartCommand { get; }
 
         private bool CanStartCommandExecute(object p) 
@@ -152,6 +161,8 @@ namespace Transport.ViewModels
 
         private void OnStartCommandExecuted(object p)
         {
+            IsSliderWork = true;
+            OnPropertyChanged(nameof(IsSliderWork));
             RoadsCarsControlService.Start();
         }
 

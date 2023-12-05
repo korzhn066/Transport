@@ -66,7 +66,7 @@ namespace Transport.ViewModels
 
         #region SelectedTransportType
 
-        private string _selectedTransportType = FuelEnum.Petrol.ToString();
+        private string _selectedTransportType = TransportEnum.Bus.ToString();
 
         public string SelectedTransportType
         {
@@ -202,14 +202,14 @@ namespace Transport.ViewModels
                 return;
             }
 
-            result = double.TryParse(EnteredStartSpeed, out double fuelCount);
+            result = double.TryParse(EnteredFuelCount, out double fuelCount);
             if (!result)
             {
                 MessageBox.Show("Invalid format of fuel count");
                 return;
             }
 
-            result = double.TryParse(EnteredMaxSpeed, out double fuelConsumption);
+            result = double.TryParse(EnteredFuelConsumption, out double fuelConsumption);
             if (!result)
             {
                 MessageBox.Show("Invalid format of fuel consumption");
@@ -223,47 +223,31 @@ namespace Transport.ViewModels
 
             if (SelectedTransportType == TransportEnum.Bus.ToString())
             {
-                response = RoadsCarsControlService.AddTransport(new Bus()
-                {
-                    Acceleration = acceleration,
-                    StartSpeed = startSpeed,
-                    MaxSpeed = maxSpeed,
-                    FuelCount = fuelCount,
-                    FuelConsumption = fuelConsumption
-                }, roadIndex);
+                var bus = new Bus();
+                bus.SetParameters(startSpeed, acceleration, maxSpeed, fuelCount, fuelConsumption);
+
+                response = RoadsCarsControlService.AddTransport(bus, roadIndex);
             }
             else if (SelectedTransportType == TransportEnum.Tram.ToString())
             {
-                response = RoadsCarsControlService.AddTransport(new Tram()
-                {
-                    Acceleration = acceleration,
-                    StartSpeed = startSpeed,
-                    MaxSpeed = maxSpeed,
-                    FuelCount = fuelCount,
-                    FuelConsumption = fuelConsumption
-                }, roadIndex);
+                var tram = new Tram();
+                tram.SetParameters(startSpeed, acceleration, maxSpeed, fuelCount, fuelConsumption);
+
+                response = RoadsCarsControlService.AddTransport(tram, roadIndex);
             }
             else if (SelectedTransportType == TransportEnum.Truck.ToString())
             {
-                response = RoadsCarsControlService.AddTransport(new Truck()
-                {
-                    Acceleration = acceleration,
-                    StartSpeed = startSpeed,
-                    MaxSpeed = maxSpeed,
-                    FuelCount = fuelCount,
-                    FuelConsumption = fuelConsumption
-                }, roadIndex);
+                var truck = new Truck();
+                truck.SetParameters(startSpeed, acceleration, maxSpeed, fuelCount, fuelConsumption);
+
+                response = RoadsCarsControlService.AddTransport(truck, roadIndex);
             }
             else if (SelectedTransportType == TransportEnum.Bike.ToString())
             {
-                response = RoadsCarsControlService.AddTransport(new Bike()
-                {
-                    Acceleration = acceleration,
-                    StartSpeed = startSpeed,
-                    MaxSpeed = maxSpeed,
-                    FuelCount = fuelCount,
-                    FuelConsumption = fuelConsumption
-                }, roadIndex);
+                var bike = new Bike();
+                bike.SetParameters(startSpeed, acceleration, maxSpeed);
+                
+                response = RoadsCarsControlService.AddTransport(bike,roadIndex);
             }
 
             if (!response.Result)

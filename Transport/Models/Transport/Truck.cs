@@ -8,13 +8,16 @@ namespace Transport.Models.Transport
 {
     internal class Truck : TransportBase, ITransport
     {
-        public FuelEnum Fuel => FuelEnum.Petrol;
         public string Name => "Truck";
-        public double FuelConsumption { get; set; }
-        public double FuelCount { get; set; }
-        public double Acceleration { get; set; }
-        public double MaxSpeed { get; set; }
-        public double StartSpeed { get; set; }
+        public void SetParameters(double startSpeed, double acceleration, double maxSpeed, 
+            double? fuelCount = null, double? fuelCosumption = null)
+        {
+            StartSpeed = startSpeed;
+            Acceleration = acceleration;
+            MaxSpeed = maxSpeed;
+            FuelCount = fuelCount;
+            FuelConsumption = fuelCosumption;
+        }
 
         public bool CheckRoad(RoadEnum road)
         {
@@ -22,11 +25,6 @@ namespace Transport.Models.Transport
                 return true;
 
             return false;
-        }
-
-        public double WastedFuel(int time)
-        {
-            return MaxSpeed / 10 * time;
         }
 
         public List<RectangleProps> GetTransportImage(int roadIndex, int roadCount, double screenWidth, double screenHeight, double x)
@@ -43,13 +41,21 @@ namespace Transport.Models.Transport
             return list;
         }
 
-        private Random _random = new ();
+        private readonly Random _random = new ();
 
         private double lastOffsetX = 0;
         public TransportResponse GetTransportInfoInTime(double screenWidth, int time)
         {
-            if (IsWorking && _random.Next(0, 100) < 1)
+            if (IsWorking && _random.Next(0, 10000) < 1)
                 IsWorking = false;
+
+            if (FuelCount <= 0)
+                IsWorking = false;
+
+            if (time % 60 == 0)
+            {
+                FuelCount -= FuelConsumption;
+            }
 
             double offsetX;
 
@@ -62,8 +68,6 @@ namespace Transport.Models.Transport
             {
                 offsetX = lastOffsetX;
             }
-
-
 
             return new TransportResponse()
             {

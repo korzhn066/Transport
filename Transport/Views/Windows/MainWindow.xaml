@@ -52,7 +52,7 @@
 
             </Viewbox>
 
-            <Slider Value="{Binding SliderValue}" Minimum="0" Maximum="1000" Grid.Row="1"/>
+            <Slider IsEnabled="{Binding IsSliderWork}" Value="{Binding SliderValue}" Minimum="0" Maximum="1000" Grid.Row="1"/>
         </Grid>
     </DockPanel>
 </Window>

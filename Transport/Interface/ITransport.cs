@@ -10,13 +10,8 @@ namespace Transport.Interface
         bool CheckRoad(RoadEnum road);
         public List<RectangleProps> GetTransportImage(int roadIndex, int roadCount, double screenWidth, double screenHeight, double x);
         public TransportResponse GetTransportInfoInTime(double screenWidth, int time);
-
-        //public void SetParameters();
-        public double FuelConsumption { get; set; }
-        public double FuelCount { get; set; }
+        public void SetParameters(double startSpeed, double acceleration, double maxSpeed
+            , double? fuelCount = null, double? fuelCosumption = null);
         string Name { get; }
-        double Acceleration { get; set; }
-        double MaxSpeed { get; set; }
-        double StartSpeed { get; set; }
     }
 }

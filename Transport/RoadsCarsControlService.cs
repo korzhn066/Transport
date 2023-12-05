@@ -116,7 +116,6 @@ namespace Transport
             }
             
         }
-
         public static void Start()
         {
             IsStart = true;
@@ -137,11 +136,5 @@ namespace Transport
                 TransportMagazine.Add(i, magazine);
             }
         }
-    }
-
-    public class Response
-    {
-        public bool Result { get; set; } = true;
-        public string? Message { get; set; }
     }
 }
