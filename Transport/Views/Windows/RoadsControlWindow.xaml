@@ -1,0 +1,80 @@
+﻿<Window x:Class="Transport.Views.Windows.RoadsControlWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Transport.Views.Windows" xmlns:vm="clr-namespace:Transport.ViewModels"
+        mc:Ignorable="d"
+        Title="RoadsControlWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:RoadsControlViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.10*"></RowDefinition>
+                <RowDefinition Height="0.10*"></RowDefinition>
+                <RowDefinition Height="0.7*"></RowDefinition>
+                <RowDefinition Height="0.1*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0">Roads settings</Label>
+            <ComboBox ItemsSource="{Binding ComboBoxFiling}" SelectedValue="{Binding RoadsListSelectedValue}" SelectedIndex="0" Grid.Row="1"/>
+            <ListBox Grid.Row="2" ItemsSource="{Binding RoadsList}"/>
+            <Button Command="{Binding AddRoadCommand}" Grid.Row="3">Add road</Button>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.10*"></RowDefinition>
+                <RowDefinition Height="0.10*"></RowDefinition>
+                <RowDefinition Height="0.7*"></RowDefinition>
+                <RowDefinition Height="0.1*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0">Transport settings</Label>
+            <ComboBox ItemsSource="{Binding TransportTypes}" SelectedValue="{Binding SelectedTransportType}" SelectedIndex="0" Grid.Row="1"/>
+
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0">Start speed</Label>
+                <TextBox Text="{Binding EnteredStartSpeed}" Grid.Row="0" Grid.Column="1"/>
+
+                <Label Grid.Row="1" Grid.Column="0">Max speed</Label>
+                <TextBox Text="{Binding EnteredMaxSpeed}" Grid.Row="1" Grid.Column="1"/>
+
+                <Label Grid.Row="2" Grid.Column="0">Acceleration</Label>
+                <TextBox Text="{Binding EnteredAcceleration}" Grid.Row="2" Grid.Column="1"/>
+
+                <Label Grid.Row="4" Grid.Column="0">Fuel Consumption</Label>
+                <TextBox Text="{Binding EnteredFuelConsumption}" Grid.Row="4" Grid.Column="1"/>
+
+                <Label Grid.Row="5" Grid.Column="0">Fuel Count</Label>
+                <TextBox Text="{Binding EnteredFuelCount}" Grid.Row="5" Grid.Column="1"/>
+
+                <Label Grid.Row="3" Grid.Column="0">Road index</Label>
+                <TextBox Text="{Binding EnteredRoadIndex}" Grid.Row="3" Grid.Column="1"/>
+            </Grid>
+
+            <Button Command="{Binding AddTransportCommand}" Grid.Row="3">Add transport</Button>
+        </Grid>
+    </Grid>
+</Window>
